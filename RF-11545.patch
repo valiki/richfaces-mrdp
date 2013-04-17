@@ -1,0 +1,30 @@
+Index: src/main/java/org/richfaces/cdk/rd/mojo/ResourceDependencyMojo.java
+===================================================================
+--- src/main/java/org/richfaces/cdk/rd/mojo/ResourceDependencyMojo.java	(revision 22800)
++++ src/main/java/org/richfaces/cdk/rd/mojo/ResourceDependencyMojo.java	(working copy)
+@@ -127,7 +127,15 @@
+ 	 */
+ 	private String scriptFilePath;
+ 	
+-	
++  /**
++   * List of Remote Repositories used by the resolver
++   * 
++   * @parameter expression="${project.remoteArtifactRepositories}"
++   * @readonly
++   * @required
++   */
++  protected List remoteRepositories;
++  
+ 	/**
+ 	 * outputResourceDirectory
+ 	 * @parameter expression="${project.build.directory}/generated-resources
+@@ -343,7 +351,7 @@
+ 		Set <Artifact> artifacts =  MavenMetadataSource.createArtifacts(factory, dependencies, null, null, project);
+ 		artifacts.add(project.getArtifact());
+ 		
+-		result =  resolver.resolveTransitively(artifacts, project.getArtifact(),  Collections.EMPTY_LIST, localRepository, metadataSource);
++		result =  resolver.resolveTransitively(artifacts, project.getArtifact(), remoteRepositories, localRepository, metadataSource);
+ 		return result.getArtifacts();
+ 	}
+ 	
