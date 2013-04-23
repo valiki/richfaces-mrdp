@@ -293,19 +293,6 @@ public  class ResourceDependencyMojo extends AbstractMojo {
 				if (afterScriptIncludes!=null && afterScriptIncludes.size()>0) {
 				    scripts.removeAll(afterScriptIncludes);
 				}
-				
-				BufferedOutputStream out = null;
-				try {
-                    out = new BufferedOutputStream(
-                            new FileOutputStream(new File("C:/Programs/sripts.txt")));
-                    for (String script : scripts) {
-                        out.write((script + "\n").getBytes());
-                    }
-                } finally{
-                   if (out!=null) {
-                    out.close();
-                   } 
-                }
                 scriptFilePath = scriptFilePath.endsWith(".js") ? scriptFilePath : scriptFilePath + ".js";  
 				File scriptFile = new File(outputResourceDirectory, scriptFilePath);
 				if(!scriptFile.exists()) {
